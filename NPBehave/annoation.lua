@@ -1,0 +1,1 @@
+---@alias Action fun()  没有参数的与返回值的函数

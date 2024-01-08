@@ -1,0 +1,42 @@
+{
+    "cSpell.words": [
+        "arcanist",
+        "cooldown",
+        "keymap",
+        "metatable"
+    ],
+    "Lua.diagnostics.globals": [
+        "gameapi",
+        "globalapi"
+    ],
+    "Lua.workspace.preloadFileSize": 5000,
+    "Lua.runtime.pathStrict": true,
+    "Lua.runtime.special": {
+        "include": "require"
+    },
+    "Lua.hover.expandAlias": false,
+    "doc.privateName": ["__*"],
+    "Lua.diagnostics.groupFileStatus": {
+        "ambiguity": "Any",
+        "await": "Any",
+        "duplicate": "Any",
+        "global": "Any",
+        "luadoc": "Any",
+        "redefined": "Any",
+        "strict": "Any",
+        "type-check": "Any",
+        "unbalanced": "Any",
+        "unused": "Any"
+    },
+    "Lua.type.weakNilCheck": false,
+    "Lua.type.weakUnionCheck": false,
+    "Lua.type.castNumberToInteger": true,
+    "Lua.runtime.unicodeName": true,
+    "Lua.diagnostics.disable": [
+        "inject-field",
+        "lowercase-global",
+        "missing-global-doc"
+    ],
+    "Lua.workspace.library": [],
+    "Lua.workspace.checkThirdParty": false,
+}
