@@ -57,7 +57,7 @@ function Service:DoChildStopped(child, result)
     elseif self._randomVariation <= 0 then
         self.Clock:RemoveTimer(self._serviceMethod)
     else
-        self.Clock:RemoveTimer(self.InvokeServiceMethodWithRandomVariation)
+        self.Clock:RemoveTimer(self:bind(self.InvokeServiceMethodWithRandomVariation))
     end
     self:Stopped(result)
 end

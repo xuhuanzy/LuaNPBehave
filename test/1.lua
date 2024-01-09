@@ -19,13 +19,12 @@ local ClassName = NPBehaveClassName
 ---@type NPBehave.Root
 local behaviorTree
 
--- behaviorTree = New(ClassName.Root)(
---     New(ClassName.Service)(1.0, function()
---             print("Hello World!")
---         end,
---         New(ClassName.WaitUntilStopped)()
---     )
+-- local tree = New(ClassName.Service)(1.0, function()
+--         print("Hello World!")
+--     end,
+--     New(ClassName.WaitUntilStopped)()
 -- )
+
 
 local tree = New(ClassName.Service)(0.5,
     function()
@@ -54,11 +53,20 @@ local tree = New(ClassName.Service)(0.5,
 
 behaviorTree = New(ClassName.Root)(tree)
 behaviorTree:Start()
+
+local count = 0
 local millisecondsTimeout = 33
 while true do
     Sleep(millisecondsTimeout / 1000)
     -- Console.WriteLine("Update");
     GameContext.Update(millisecondsTimeout / 1000)
+    count = count + 1
+    if count == 100 then
+        print("停止")
+        if behaviorTree ~= nil and behaviorTree.CurrentState == NPBehaveNodeState.Active then
+            behaviorTree:CancelWithoutReturnResult()
+        end
+    end
     -- print("Update")
 end
 
