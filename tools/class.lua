@@ -54,8 +54,8 @@ function M.declare(name, super)
     if M._classes[name] then
         return M._classes[name], config
     end
-    local class  = {}
-    local getter = {}
+    local class    = {}
+    local getter   = {}
     class.__name   = name
     class.__getter = getter
 
@@ -99,7 +99,7 @@ function M.declare(name, super)
     M._classes[name] = class
 
     local mt = {
-        __call = function (self, ...)
+        __call = function(self, ...)
             if not self.__alloc then
                 return self
             end
@@ -177,7 +177,7 @@ end
 ---@return boolean
 function M.isValid(obj)
     return obj.__class__
-       and not obj.__deleted__
+        and not obj.__deleted__
 end
 
 ---@param name string
@@ -204,7 +204,7 @@ end
 ---@param name string
 ---@param ... any
 function M.runInit(obj, name, ...)
-    local data  = M.getConfig(name)
+    local data = M.getConfig(name)
     if data.initCalls == false then
         return
     end
@@ -212,14 +212,14 @@ function M.runInit(obj, name, ...)
         local initCalls = {}
 
         local function collectInitCalls(cname)
-            local class = M._classes[cname]
-            local cdata  = M.getConfig(cname)
+            local class        = M._classes[cname]
+            local cdata        = M.getConfig(cname)
             local extendsCalls = cdata.extendsCalls
             if extendsCalls then
                 for _, call in ipairs(extendsCalls) do
                     if call.init then
-                        initCalls[#initCalls+1] = function (cobj, ...)
-                            call.init(cobj, function (...)
+                        initCalls[#initCalls + 1] = function(cobj, ...)
+                            call.init(cobj, function(...)
                                 M.runInit(cobj, call.name, ...)
                             end, ...)
                         end
@@ -229,7 +229,7 @@ function M.runInit(obj, name, ...)
                 end
             end
             if class.__init then
-                initCalls[#initCalls+1] = class.__init
+                initCalls[#initCalls + 1] = class.__init
             end
         end
 
@@ -252,8 +252,8 @@ end
 ---@param obj table
 ---@param name string
 function M.runDel(obj, name)
-    local class = M._classes[name]
-    local data  = M.getConfig(name)
+    local class        = M._classes[name]
+    local data         = M.getConfig(name)
     local extendsCalls = data.extendsCalls
     if extendsCalls then
         for _, call in ipairs(extendsCalls) do
@@ -283,12 +283,12 @@ function Config:super(name)
             M._errorHandler(('class %q not inherit from any class'):format(name))
         end
         ---@cast super -?
-        self.superCache[name] = function (...)
+        self.superCache[name] = function(...)
             local k, obj = debug.getlocal(2, 1)
             if k ~= 'self' then
                 M._errorHandler(('`%s()` must be called by the class'):format(name))
             end
-            super.__call(obj,...)
+            super.__call(obj, ...)
         end
     end
     return self.superCache[name]
@@ -336,5 +336,36 @@ function Config:extends(extendsName, init)
     end
 end
 
+---检查一个对象是否是某个类的实例
+---@param obj? table
+---@param parentName string
+---@return boolean
+function M.IsInstanceOf(obj, parentName)
+    if not obj then
+        return false
+    end
+    ---@param name string
+    ---@return boolean
+    local function checkParent(name)
+        if name == parentName then
+            return true
+        end
+        for pname in pairs(M.getConfig(name).extendsMap) do
+            ---@cast pname string
+            if pname == parentName then
+                return true
+            end
+            if checkParent(pname) then
+                return true
+            end
+        end
+        return false
+    end
+    if checkParent(M.type(obj)--[[@as string]]) then
+        return true
+    end
+
+    return false
+end
 
 return M

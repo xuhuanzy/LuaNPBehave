@@ -84,12 +84,12 @@ function Blackboard:Set(key, value)
         if not self._data[key] then
             self._data[key] = value
             table.insert(self._notifications, Notification(key, NPBehaveBlackboardType.Add, value))
-            self._clock:AddTimer(0, 0, self:bind("NotifyObservers"))
+            self._clock:AddTimer(0, 0, self:bind(self.NotifyObservers))
         else
             if (self._data[key] == nil and value ~= nil) or (self._data[key] ~= nil and self._data[key] ~= value) then
                 self._data[key] = value
                 table.insert(self._notifications, Notification(key, NPBehaveBlackboardType.Change, value))
-                self._clock:AddTimer(0, 0, self:bind("NotifyObservers"))
+                self._clock:AddTimer(0, 0, self:bind(self.NotifyObservers))
             end
         end
     end
@@ -108,9 +108,13 @@ function Blackboard:Unset(key)
     if self._data[key] then
         self._data[key] = nil
         table.insert(self._notifications, Notification(key, NPBehaveBlackboardType.Remove, nil))
-        self._clock:AddTimer(0, 0, self:bind("NotifyObservers"))
+        self._clock:AddTimer(0, 0, self:bind(self.NotifyObservers))
     end
 end
+
+--[[ 
+    string|number|integer|boolean|table|nil
+ ]]
 
 ---获取键值
 ---@param key string
@@ -208,7 +212,7 @@ function Blackboard:NotifyObservers()
         for _, notification in ipairs(self._notifications) do
             table.insert(child._notifications, notification)
         end
-        child._clock:AddTimer(0, 0, child:bind("NotifyObservers"))
+        child._clock:AddTimer(0, 0, child:bind(self.NotifyObservers))
     end
     self._notifications = {}
 

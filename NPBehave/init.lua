@@ -1,16 +1,27 @@
 NPBehave = {}
 
-require("NPBehave.util")
-require("NPBehave.Stop")
+require("NPBehave.enum")
+require("NPBehave.tools.types")
+require("NPBehave.tools.util")
 require("NPBehave.Node")
 require("NPBehave.Container")
-require("NPBehave.Decorator.Decorator")
-require("NPBehave.Composite.Composite")
 require("NPBehave.Blackboard")
 require("NPBehave.Clock")
 require("NPBehave.Context")
 
+
+require("NPBehave.Decorator.Decorator")
 require("NPBehave.Decorator.Service")
+require("NPBehave.Decorator.ObservingDecorator")
+require("NPBehave.Decorator.BlackboardCondition")
+
+require("NPBehave.Composite.Composite")
+require("NPBehave.Composite.Selector")
+require("NPBehave.Composite.Sequence")
+
+
+
+
 require("NPBehave.Task.Task")
 require("NPBehave.Task.Action")
 require("NPBehave.Task.WaitUntilStopped")

@@ -37,7 +37,7 @@ end
 ---@param clock? NPBehave.Clock
 function Root:__init(mainNode, blackboard, clock)
     clock = clock or NPBehave.Context.Clock;
-    blackboard = blackboard or New("NPBehave.Blackboard")();
+    blackboard = blackboard or New("NPBehave.Blackboard")(clock);
     self._blackboard = blackboard;
     self._clock = clock;
     self:SetRoot(self);
@@ -72,7 +72,7 @@ end
 function Root:DoChildStopped(node, success)
     if not self.IsStopRequested then
         -- 等待一`tick`, 防止无休止的递归
-        self._clock:AddTimer(0, 0, self.Decoratee:bind("Start"))
+        self._clock:AddTimer(0, 0, self.Decoratee:bind(self.Start))
     else
         self._blackboard:Disable()
         self:Stopped(success)

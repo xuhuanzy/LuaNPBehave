@@ -9,6 +9,7 @@ Extends = class.extends
 Delete  = class.delete
 IsValid = class.isValid
 ClassGet = class.get
+ClassTool = class
 
 include = require
 require 'tools.linked_table'

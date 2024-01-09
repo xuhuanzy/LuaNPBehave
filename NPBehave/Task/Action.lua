@@ -48,20 +48,20 @@ function Action:DoStart()
     elseif self._multiFrameFunc ~= nil then
         local result = self._multiFrameFunc(false)
         if result == NPBehaveTaskActionResult.Progress then
-            self.RootNode.Clock:AddUpdateObserver(self:bind("OnUpdateFunc"))
+            self.RootNode.Clock:AddUpdateObserver(self:bind(self.OnUpdateFunc))
         elseif result == NPBehaveTaskActionResult.Blocked then
             self._bWasBlocked = true
-            self.RootNode.Clock:AddUpdateObserver(self:bind("OnUpdateFunc"))
+            self.RootNode.Clock:AddUpdateObserver(self:bind(self.OnUpdateFunc))
         else
             self:Stopped(result == NPBehaveTaskActionResult.Success)
         end
     elseif self._multiFrameFunc2 ~= nil then
         local result = self._multiFrameFunc2(NPBehaveTaskActionRequest.Start)
         if result == NPBehaveTaskActionResult.Progress then
-            self.RootNode.Clock:AddUpdateObserver(self:bind("OnUpdateFunc2"))
+            self.RootNode.Clock:AddUpdateObserver(self:bind(self.OnUpdateFunc2))
         elseif result == NPBehaveTaskActionResult.Blocked then
             self._bWasBlocked = true
-            self.RootNode.Clock:AddUpdateObserver(self:bind("OnUpdateFunc2"))
+            self.RootNode.Clock:AddUpdateObserver(self:bind(self.OnUpdateFunc2))
         else
             self:Stopped(result == NPBehaveTaskActionResult.Success)
         end

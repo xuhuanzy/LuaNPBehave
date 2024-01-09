@@ -15,7 +15,6 @@ end)
 ---@param randomVariation? number 随机方差, 默认为 `interval * 0.05`
 ---@return self
 function Service:__init(interval, service, decoratee, randomVariation)
-    self.base = ClassGet(superName)
     self._serviceMethod = service
     self._interval = interval or -1.0
     self._randomVariation = randomVariation or interval * 0.05;
@@ -67,7 +66,7 @@ end
 ---@private
 function Service:InvokeServiceMethodWithRandomVariation()
     self._serviceMethod()
-    self.Clock:AddTimer(self._interval, 0, self:bind("InvokeServiceMethodWithRandomVariation"), self._randomVariation)
+    self.Clock:AddTimer(self._interval, 0, self:bind(self.InvokeServiceMethodWithRandomVariation), self._randomVariation)
 end
 
 return Service

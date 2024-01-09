@@ -15,12 +15,7 @@ local Node = Class("NPBehave.Node")
 ---@class NPBehave.Node: FuncUtil
 Extends('NPBehave.Node', "FuncUtil")
 
----@enum NPBehaveNodeState
-NPBehaveNodeState = {
-    Inactive = "Inactive",
-    Active = "Active",
-    StopRequested = "StopRequested",
-}
+
 
 
 ---@diagnostic disable-next-line: undefined-field
