@@ -27,3 +27,9 @@ NPBehaveOperator = {
     IsSmaller = "IsSmaller",
     AlwaysTrue = "AlwaysTrue"
 }
+
+---@enum NPBehaveParallelPolicy
+NPBehaveParallelPolicy = {
+    One = "One",
+    All = "All",
+}
