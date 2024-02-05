@@ -55,27 +55,19 @@ behaviorTree = New(ClassName.Root)(tree)
 behaviorTree:Start()
 
 local count = 0
-local millisecondsTimeout = 33
+local millisecondsTimeout = 500
 while true do
     Sleep(millisecondsTimeout / 1000)
     -- Console.WriteLine("Update");
     GameContext.Update(millisecondsTimeout / 1000)
-    count = count + 1
-    if count == 100 then
-        print("停止")
-        if behaviorTree ~= nil and behaviorTree.CurrentState == NPBehaveNodeState.Active then
-            behaviorTree:CancelWithoutReturnResult()
-        end
-    end
+    -- count = count + 1
+    -- if count == 100 then
+    --     print("stop")
+    --     if behaviorTree ~= nil and behaviorTree.CurrentState == NPBehaveNodeState.Active then
+    --         behaviorTree:CancelWithoutReturnResult()
+    --     end
+    -- end
     -- print("Update")
 end
 
--- local obj1 = New(ClassName.WaitUntilStopped)()
--- local obj2 = New(ClassName.WaitUntilStopped)()
--- local x1 = obj1:bind(obj1.SetRoot)
--- local x2 = obj1:bind(obj1.SetRoot)
--- local x3 = obj2:bind(obj2.SetRoot)
--- local x4 = obj2:bind(obj2.SetRoot)
--- local x4 = obj2:bind(obj2.SetRoot)
 
--- print()

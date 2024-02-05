@@ -12,7 +12,6 @@ ClassGet = class.get
 ClassTool = class
 
 include = require
-require 'tools.linked_table'
 
 util = require 'tools.utility'
 dump = util.dump

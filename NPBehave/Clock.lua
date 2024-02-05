@@ -36,7 +36,8 @@ function Clock:__init()
     self._timerLookup = {}
     --TODO 可能需要换成有序字典
     ---@type {[number]: NPBehave.Clock.Timer}
-    self._timers = util.orderedTable()
+    self._timers = NPBehave.Util.OrderedTable()
+    -- self._timers = util.container({})
     ---@type {[Action]: boolean} 用于标记需要移除的计时器, 模拟`hashset`
     self._removeTimers = {}
     ---@type {[Action]: NPBehave.Clock.AddTimerStruct}

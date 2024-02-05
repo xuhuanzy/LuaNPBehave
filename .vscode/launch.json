@@ -8,6 +8,8 @@
             "type": "lua",
             "request": "launch",
             "name": "Debug",
+            "path": "${env:LUA_PATH}",
+            "cpath": "${env:LUA_CPATH}",
             "program": "${workspaceFolder}/test/1.lua"
         }
     ]

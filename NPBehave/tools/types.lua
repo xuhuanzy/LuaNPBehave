@@ -10,6 +10,16 @@ NPBehaveClassName = {
     BlackboardQuery = "NPBehave.Decorator.BlackboardQuery",
     Condition = "NPBehave.Decorator.Condition",
     Cooldown = "NPBehave.Decorator.Cooldown",
+    Failer = "NPBehave.Decorator.Failer",
+    Hook = "NPBehave.Decorator.Hook",
+    Inverter = "NPBehave.Decorator.Inverter",
+    Observer = "NPBehave.Decorator.Observer",
+    Random = "NPBehave.Decorator.Random",
+    Repeater = "NPBehave.Decorator.Repeater",
+    Succeeder = "NPBehave.Decorator.Succeeder",
+    TimeMax = "NPBehave.Decorator.TimeMax",
+    TimeMin = "NPBehave.Decorator.TimeMin",
+    WaitForCondition = "NPBehave.Decorator.WaitForCondition",
 
     Composite = "NPBehave.Composite.Composite",
     Sequence = "NPBehave.Composite.Sequence",
@@ -21,5 +31,6 @@ NPBehaveClassName = {
     Action = "NPBehave.Task.Action",
     Task = "NPBehave.Task.Task",
     WaitUntilStopped = "NPBehave.Task.WaitUntilStopped",
+    Wait = "NPBehave.Task.Wait",
 
 }
