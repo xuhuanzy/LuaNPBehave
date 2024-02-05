@@ -1,4 +1,5 @@
 ---@class NPBehave.Decorator.Failer : NPBehave.Decorator.Decorator
+---@overload fun(decoratee: NPBehave.Node): self
 local Failer = Class(NPBehaveClassName.Failer)
 local superName = NPBehaveClassName.Decorator
 
@@ -9,7 +10,9 @@ Extends(NPBehaveClassName.Failer, superName, function(self, super, ...)
 end)
 
 ---@param decoratee NPBehave.Node
+---@return self
 function Failer:__init(decoratee)
+    return self
 end
 
 ---override<br>

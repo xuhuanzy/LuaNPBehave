@@ -1,5 +1,5 @@
 ---@class NPBehave.Composite.Selector
----@overload fun(...: NPBehave.Node): NPBehave.Composite.Selector
+---@overload fun(...: NPBehave.Node): self
 local Selector = Class(NPBehaveClassName.Selector)
 local superName = NPBehaveClassName.Composite
 
@@ -10,6 +10,7 @@ end)
 
 function Selector:__init(children)
     self._currentIndex = 0
+    return self
 end
 
 ---override<br>

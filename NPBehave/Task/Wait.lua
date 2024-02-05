@@ -1,4 +1,5 @@
 ---@class NPBehave.Task.Wait : NPBehave.Task.Task
+---@overload fun(name: string): self
 local Wait = Class(NPBehaveClassName.Wait)
 local superName = NPBehaveClassName.Task
 
@@ -17,11 +18,13 @@ end)
 
 
 ---@param data NPBehave.Task.Wait.Data
+---@return self
 function Wait:__init(data)
     self._seconds = data.seconds or -1
     self._randomVariance = data.randomVariance
     self._blackboardKey = data.blackboardKey
     self._callback = data.callback
+    return self
 end
 
 ---override<br>

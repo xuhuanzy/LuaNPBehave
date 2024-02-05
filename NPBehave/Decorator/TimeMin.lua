@@ -1,4 +1,5 @@
 ---@class NPBehave.Decorator.TimeMin : NPBehave.Decorator.Decorator
+---@overload fun(limit: number, decoratee: NPBehave.Node, waitOnFailure: boolean, randomVariation: number): self
 local TimeMin = Class(NPBehaveClassName.TimeMin)
 local superName = NPBehaveClassName.Decorator
 
@@ -12,6 +13,7 @@ end)
 ---@param randomVariation? number
 ---@param waitOnFailure boolean
 ---@param decoratee NPBehave.Node
+---@return self
 function TimeMin:__init(limit, randomVariation, waitOnFailure, decoratee)
     self._limit = limit
     self._randomVariation = randomVariation or limit * 0.05
@@ -20,6 +22,7 @@ function TimeMin:__init(limit, randomVariation, waitOnFailure, decoratee)
     self._isDecorateeDone = false
     self._isDecorateeSuccess = false
     assert(limit > 0, "limit 必须大于 0")
+    return self
 end
 
 ---override<br>

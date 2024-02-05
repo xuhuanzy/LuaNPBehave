@@ -17,6 +17,7 @@ Extends(NPBehaveClassName.Cooldown, "FuncUtil")
 ---@param resetOnFailure boolean
 ---@param failOnCooldown boolean
 ---@param decoratee NPBehave.Node
+---@return self
 function Cooldown:__init(cooldownTime, randomVariation, startAfterDecoratee, resetOnFailure, failOnCooldown, decoratee)
     assert(cooldownTime > 0, "必须设置冷却时间")
     self._startAfterDecoratee = startAfterDecoratee
@@ -25,6 +26,7 @@ function Cooldown:__init(cooldownTime, randomVariation, startAfterDecoratee, res
     self._randomVariation = randomVariation
     self._failOnCooldown = failOnCooldown
     self._isReady = true
+    return self
 end
 
 ---override<br>

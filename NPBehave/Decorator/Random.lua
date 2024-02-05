@@ -1,4 +1,5 @@
 ---@class NPBehave.Decorator.Random : NPBehave.Decorator.Decorator
+---@overload fun(probability: number, decoratee: NPBehave.Node): self
 local Random = Class(NPBehaveClassName.Random)
 local superName = NPBehaveClassName.Decorator
 
@@ -10,8 +11,10 @@ end)
 
 ---@param probability number
 ---@param decoratee NPBehave.Node
+---@return self
 function Random:__init(probability, decoratee)
     self._probability = probability
+    return self
 end
 
 ---override<br>

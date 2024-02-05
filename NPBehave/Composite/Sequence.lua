@@ -1,5 +1,5 @@
 ---@class NPBehave.Composite.Sequence
----@overload fun(...: NPBehave.Node): NPBehave.Composite.Sequence
+---@overload fun(...: NPBehave.Node): self
 local Sequence = Class(NPBehaveClassName.Sequence)
 local superName = NPBehaveClassName.Composite
 
@@ -10,6 +10,7 @@ end)
 
 function Sequence:__init(children)
     self._currentIndex = 0
+    return self
 end
 
 ---override<br>

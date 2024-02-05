@@ -1,5 +1,5 @@
 ---@class NPBehave.Decorator.Service
----@overload fun(interval: number, service: Action, decoratee: NPBehave.Node, randomVariation: number): self
+---@overload fun(interval: number, service: fun(), decoratee: NPBehave.Node, randomVariation: number): self
 local Service = Class("NPBehave.Decorator.Service")
 local superName = "NPBehave.Decorator.Decorator"
 
@@ -10,7 +10,7 @@ Extends('NPBehave.Decorator.Service', superName, function(self, super, ...)
 end)
 
 ---@param interval? number 间隔时间, 默认为 `-1.0` (每帧都执行)
----@param service Action 服务函数
+---@param service fun() 服务函数
 ---@param decoratee NPBehave.Node 被装饰的节点
 ---@param randomVariation? number 随机方差, 默认为 `interval * 0.05`
 ---@return self

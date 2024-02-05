@@ -35,12 +35,14 @@ end
 ---@param mainNode NPBehave.Node
 ---@param blackboard? NPBehave.Blackboard
 ---@param clock? NPBehave.Clock
+---@return self
 function Root:__init(mainNode, blackboard, clock)
     clock = clock or NPBehave.Context.Clock;
     blackboard = blackboard or New("NPBehave.Blackboard")(clock);
     self._blackboard = blackboard;
     self._clock = clock;
     self:SetRoot(self);
+    return self
 end
 
 ---@param rootNode NPBehave.Root

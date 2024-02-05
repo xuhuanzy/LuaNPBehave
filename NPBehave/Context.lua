@@ -25,6 +25,7 @@ Context.Clock = New("NPBehave.Clock")();
 
 function Context:__init()
     self.Blackboards = {};
+    return self;
 end
 
 ---获取共享黑板

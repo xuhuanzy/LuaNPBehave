@@ -1,16 +1,16 @@
+NPBehaveClassName.Decorator =  "NPBehave.Decorator.Decorator"
+
 ---@class NPBehave.Decorator.Decorator
 ---@field protected Decoratee NPBehave.Node
 ---@overload fun(name: string, decoratee: NPBehave.Node): self
-local Decorator = Class("NPBehave.Decorator.Decorator")
+local Decorator = Class(NPBehaveClassName.Decorator)
 local superName = "NPBehave.Container"
 ---@class NPBehave.Decorator.Decorator: NPBehave.Container
-Extends('NPBehave.Decorator.Decorator', superName, function(self, super, ...)
+Extends(NPBehaveClassName.Decorator, superName, function(self, super, ...)
     local name = ...
     super(name)
 end)
 
----@class NPBehave.Decorator.Decorator: FuncUtil
-Extends('NPBehave.Decorator.Decorator', "FuncUtil")
 
 ---@param name string
 ---@param decoratee NPBehave.Node

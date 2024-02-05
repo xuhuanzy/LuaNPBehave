@@ -1,5 +1,5 @@
 ---@class NPBehave.Composite.RandomSequence
----@overload fun(...: NPBehave.Node): NPBehave.Composite.RandomSequence
+---@overload fun(...: NPBehave.Node): self
 local RandomSequence = Class(NPBehaveClassName.RandomSequence)
 local superName = NPBehaveClassName.Composite
 
@@ -9,12 +9,14 @@ Extends(NPBehaveClassName.RandomSequence, superName, function(self, super, ...)
 end)
 
 ---@param children NPBehave.Node[]
+---@return self
 function RandomSequence:__init(children)
     self._currentIndex = 0
     self._randomizedOrder = {}
     for i = 1, #children do
         self._randomizedOrder[i] = i
     end
+    return self
 end
 
 ---override<br>

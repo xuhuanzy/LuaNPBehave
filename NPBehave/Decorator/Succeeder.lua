@@ -1,4 +1,5 @@
 ---@class NPBehave.Decorator.Succeeder : NPBehave.Decorator.Decorator
+---@overload fun(decoratee: NPBehave.Node): self
 local Succeeder = Class(NPBehaveClassName.Succeeder)
 local superName = NPBehaveClassName.Decorator
 
@@ -9,7 +10,9 @@ Extends(NPBehaveClassName.Succeeder, superName, function(self, super, ...)
 end)
 
 ---@param decoratee NPBehave.Node
+---@return self
 function Succeeder:__init(decoratee)
+    return self
 end
 
 ---override<br>

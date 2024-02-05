@@ -9,8 +9,10 @@ Extends('NPBehave.Task.WaitUntilStopped', superName, function(self, super, ...)
 end)
 
 ---@param successWhenStopped? boolean
+---@return self
 function WaitUntilStopped:__init(successWhenStopped)
     self._successWhenStopped = successWhenStopped or false
+    return self
 end
 
 ---@protected

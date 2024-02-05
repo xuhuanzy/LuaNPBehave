@@ -1,5 +1,5 @@
 ---@class NPBehave.Composite.Parallel
----@overload fun(successPolicy: NPBehaveParallelPolicy, failurePolicy: NPBehaveParallelPolicy, ...: NPBehave.Node): NPBehave.Composite.Parallel
+---@overload fun(successPolicy: NPBehaveParallelPolicy, failurePolicy: NPBehaveParallelPolicy, ...: NPBehave.Node): self
 local Parallel = Class(NPBehaveClassName.Parallel)
 local superName = NPBehaveClassName.Composite
 
@@ -15,6 +15,7 @@ end)
 ---@param successPolicy NPBehaveParallelPolicy
 ---@param failurePolicy NPBehaveParallelPolicy
 ---@param ... NPBehave.Node[]
+---@return self
 function Parallel:__init(successPolicy, failurePolicy, ...)
     self._successPolicy = successPolicy
     self._failurePolicy = failurePolicy
@@ -27,6 +28,7 @@ function Parallel:__init(successPolicy, failurePolicy, ...)
     self._childrenResults = {}
     self._successState = false
     self._childrenAborted = false
+    return self
 end
 
 ---override<br>

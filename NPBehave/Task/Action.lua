@@ -1,3 +1,5 @@
+NPBehaveClassName.Action = "NPBehave.Task.Action"
+
 ---@class NPBehave.Task.Action
 ---@overload fun(data: NPBehave.Task.Action.InitParam): self
 local Action = Class("NPBehave.Task.Action")
@@ -25,18 +27,20 @@ NPBehaveTaskActionRequest = {
 
 
 ---@class NPBehave.Task.Action.InitParam
----@field action? Action
+---@field action? fun()
 ---@field multiFrameFunc? fun(param: boolean): NPBehaveTaskActionResult
 ---@field multiFrameFunc2? fun(param: NPBehaveTaskActionRequest): NPBehaveTaskActionResult
 ---@field singleFrameFunc? fun(): boolean
 
 ---@param data NPBehave.Task.Action.InitParam
+---@return self
 function Action:__init(data)
     self._singleFrameFunc = data.singleFrameFunc
     self._multiFrameFunc = data.multiFrameFunc
     self._multiFrameFunc2 = data.multiFrameFunc2
     self._action = data.action
     self._bWasBlocked = false
+    return self
 end
 
 ---override<br>

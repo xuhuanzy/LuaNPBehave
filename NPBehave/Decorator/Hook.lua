@@ -1,4 +1,5 @@
 ---@class NPBehave.Decorator.Hook : NPBehave.Decorator.Decorator
+---@overload fun(onStart: fun(), decoratee: NPBehave.Node): self
 local Hook = Class(NPBehaveClassName.Hook)
 local superName = NPBehaveClassName.Decorator
 
@@ -10,8 +11,10 @@ end)
 
 ---@param onStart fun()
 ---@param decoratee NPBehave.Node
+---@return self
 function Hook:__init(onStart, decoratee)
     self._onStart = onStart
+    return self
 end
 
 ---override<br>

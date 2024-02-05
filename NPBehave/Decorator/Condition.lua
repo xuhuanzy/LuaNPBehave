@@ -17,10 +17,12 @@ Extends(NPBehaveClassName.Condition, "FuncUtil")
 ---@param decoratee NPBehave.Node
 ---@param checkInterval? number
 ---@param randomVariance? number
+---@return self
 function Condition:__init(condition, stopsOnChange, decoratee, checkInterval, randomVariance)
     self._condition = condition
     self._checkInterval = checkInterval or 0.0
     self._checkVariance = randomVariance or 0.0
+    return self
 end
 
 ---override<br>

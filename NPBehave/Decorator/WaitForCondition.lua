@@ -1,4 +1,5 @@
 ---@class NPBehave.Decorator.WaitForCondition : NPBehave.Decorator.Decorator
+---@overload fun(condition: fun():boolean, checkInterval: number, randomVariance: number, decoratee: NPBehave.Node): self
 local WaitForCondition = Class(NPBehaveClassName.WaitForCondition)
 local superName = NPBehaveClassName.Decorator
 
@@ -13,11 +14,13 @@ end)
 ---@param checkInterval? number
 ---@param randomVariance? number
 ---@param decoratee NPBehave.Node
+---@return self
 function WaitForCondition:__init(condition, checkInterval, randomVariance, decoratee)
     self._condition = condition
     self._checkInterval = checkInterval or 0.0
     self._checkVariance = randomVariance or 0.0
     self.Label = "" .. (checkInterval - randomVariance) .. "..." .. (checkInterval + randomVariance) .. "s"
+    return self
 end
 
 ---override<br>

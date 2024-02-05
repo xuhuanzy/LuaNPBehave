@@ -15,9 +15,11 @@ Extends(NPBehaveClassName.BlackboardQuery, "FuncUtil")
 ---@param stopsOnChange NPBehaveStops
 ---@param query fun():boolean
 ---@param decoratee NPBehave.Node
+---@return self
 function BlackboardQuery:__init(keys, stopsOnChange, query, decoratee)
     self._keys = keys
     self._query = query
+    return self
 end
 
 ---override<br>

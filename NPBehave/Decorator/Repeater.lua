@@ -1,4 +1,5 @@
 ---@class NPBehave.Decorator.Repeater : NPBehave.Decorator.Decorator
+---@overload fun(loopCount: number, decoratee: NPBehave.Node): self
 local Repeater = Class(NPBehaveClassName.Repeater)
 local superName = NPBehaveClassName.Decorator
 
@@ -10,9 +11,11 @@ end)
 
 ---@param loopCount number 执行装饰器的次数, `-1`为无限重复.
 ---@param decoratee NPBehave.Node
+---@return self
 function Repeater:__init(loopCount, decoratee)
     self._loopCount = loopCount
     self._currentLoop = 0
+    return self
 end
 
 ---override<br>

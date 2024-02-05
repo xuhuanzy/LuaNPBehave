@@ -1,4 +1,5 @@
 ---@class NPBehave.Decorator.Inverter : NPBehave.Decorator.Decorator
+---@overload fun(decoratee: NPBehave.Node): self
 local Inverter = Class(NPBehaveClassName.Inverter)
 local superName = NPBehaveClassName.Decorator
 
@@ -9,7 +10,9 @@ Extends(NPBehaveClassName.Inverter, superName, function(self, super, ...)
 end)
 
 ---@param decoratee NPBehave.Node
+---@return self
 function Inverter:__init(decoratee)
+    return self
 end
 
 ---override<br>

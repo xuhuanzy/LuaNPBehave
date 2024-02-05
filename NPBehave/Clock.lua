@@ -5,7 +5,7 @@
 local AddTimerStruct = Class("NPBehave.Clock.AddTimerStruct")
 
 ---@class NPBehave.Clock.Timer
----@field Action? Action
+---@field Action? fun()
 ---@overload fun(): NPBehave.Clock.Timer
 local Timer = Class("NPBehave.Clock.Timer")
 ---@return self
@@ -32,15 +32,15 @@ local Clock = Class("NPBehave.Clock")
 
 ---@return self
 function Clock:__init()
-    ---@type {[Action]: number}
+    ---@type {[fun()]: number}
     self._timerLookup = {}
     --TODO 可能需要换成有序字典
     ---@type {[number]: NPBehave.Clock.Timer}
     self._timers = NPBehave.Util.OrderedTable()
     -- self._timers = util.container({})
-    ---@type {[Action]: boolean} 用于标记需要移除的计时器, 模拟`hashset`
+    ---@type {[fun()]: boolean} 用于标记需要移除的计时器, 模拟`hashset`
     self._removeTimers = {}
-    ---@type {[Action]: NPBehave.Clock.AddTimerStruct}
+    ---@type {[fun()]: NPBehave.Clock.AddTimerStruct}
     self._addTimers = {}
     self._isInUpdate = false
     self._timerNum = 0
@@ -55,7 +55,7 @@ end
 ---注册一个具有随机方差的计时器函数
 ---@param delay number 延迟时间(以毫秒为单位)
 ---@param repeat_count number 重复次数, 设为 -1 则重复直至取消注册.
----@param action Action 回调函数
+---@param action fun() 回调函数
 ---@param randomVariance? number 随机方差
 function Clock:AddTimer(delay, repeat_count, action, randomVariance)
     randomVariance = randomVariance or 0.0
@@ -100,7 +100,7 @@ function Clock:AddTimer(delay, repeat_count, action, randomVariance)
 end
 
 ---移除计时器
----@param action Action 回调函数
+---@param action fun() 回调函数
 function Clock:RemoveTimer(action)
     if not self._isInUpdate then
         if self._timerLookup[action] then
@@ -124,7 +124,7 @@ function Clock:RemoveTimer(action)
 end
 
 ---检查是否存在计时器
----@param action Action 回调函数
+---@param action fun() 回调函数
 ---@return boolean
 function Clock:HasTimer(action)
     if not self._isInUpdate then

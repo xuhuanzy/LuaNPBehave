@@ -1,4 +1,5 @@
 ---@class NPBehave.Decorator.Observer : NPBehave.Decorator.Decorator
+---@overload fun(onStart: fun(), onStop: fun(result: boolean), decoratee: NPBehave.Node): self
 local Observer = Class(NPBehaveClassName.Observer)
 local superName = NPBehaveClassName.Decorator
 
@@ -11,9 +12,11 @@ end)
 ---@param onStart fun()
 ---@param onStop fun(result: boolean)
 ---@param decoratee NPBehave.Node
+---@return self
 function Observer:__init(onStart, onStop, decoratee)
     self._onStart = onStart
     self._onStop = onStop
+    return self
 end
 
 ---override<br>
