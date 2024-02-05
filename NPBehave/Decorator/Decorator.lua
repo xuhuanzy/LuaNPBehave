@@ -1,5 +1,3 @@
-NPBehaveClassName.Decorator =  "NPBehave.Decorator.Decorator"
-
 ---@class NPBehave.Decorator.Decorator
 ---@field protected Decoratee NPBehave.Node
 ---@overload fun(name: string, decoratee: NPBehave.Node): self

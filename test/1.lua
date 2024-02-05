@@ -50,7 +50,6 @@ local tree = New(ClassName.Service)(0.5,
         )
     )
 )
-
 behaviorTree = New(ClassName.Root)(tree)
 behaviorTree:Start()
 

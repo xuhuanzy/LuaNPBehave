@@ -17,6 +17,7 @@ function Timer:__init()
     self.Delay = 0.0
     self.RandomVariance = 0.0
     self.Action = nil
+    self.repeat_count = 0
     return self
 end
 

@@ -1,5 +1,3 @@
-NPBehaveClassName.Action = "NPBehave.Task.Action"
-
 ---@class NPBehave.Task.Action
 ---@overload fun(data: NPBehave.Task.Action.InitParam): self
 local Action = Class("NPBehave.Task.Action")

@@ -1,5 +1,3 @@
-NPBehaveClassName.Task = "NPBehave.Task.Task"
-
 ---abstract<br>
 ---@class NPBehave.Task.Task
 ---@overload fun(name: string): self

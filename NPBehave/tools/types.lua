@@ -3,7 +3,7 @@ NPBehaveClassName = {
     Node = "NPBehave.Node",
     Root = "NPBehave.Root",
 
-    -- Decorator = "NPBehave.Decorator.Decorator",
+    Decorator = "NPBehave.Decorator.Decorator",
     ObservingDecorator = "NPBehave.Decorator.ObservingDecorator",
     BlackboardCondition = "NPBehave.Decorator.BlackboardCondition",
     Service = "NPBehave.Decorator.Service",
@@ -28,9 +28,8 @@ NPBehaveClassName = {
     RandomSelector = "NPBehave.Composite.RandomSelector",
     RandomSequence = "NPBehave.Composite.RandomSequence",
 
-    -- Action = "NPBehave.Task.Action",
-    -- Task = "NPBehave.Task.Task",
+    Action = "NPBehave.Task.Action",
+    Task = "NPBehave.Task.Task",
     WaitUntilStopped = "NPBehave.Task.WaitUntilStopped",
     Wait = "NPBehave.Task.Wait",
-
 }
