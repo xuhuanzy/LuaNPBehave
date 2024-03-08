@@ -4,8 +4,8 @@
  ]]
 NPBehave = {}
 
-require("NPBehave.enum")
-require("NPBehave.tools.types")
+NPBehave.Enum = require("NPBehave.enum")
+NPBehave.ClassName = require("NPBehave.tools.types")
 NPBehave.Util = require("NPBehave.tools.util")
 require("NPBehave.Node")
 require("NPBehave.Container")

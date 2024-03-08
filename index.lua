@@ -4,12 +4,11 @@ game = {}
 local class = require("tools.class")
 Class   = class.declare
 New     = class.new
-Super   = class.super
 Extends = class.extends
 Delete  = class.delete
 IsValid = class.isValid
-ClassGet = class.get
-ClassTool = class
+IsInstanceOf = class.isInstanceOf
+-- ClassGet = class.get
 
 include = require
 
