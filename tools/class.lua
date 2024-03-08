@@ -18,6 +18,7 @@ M._errorHandler = error
 ---@field public  __alloc? fun(self: any)
 ---@field package __call   fun(self: any, ...)
 ---@field public  __getter table
+---@field public  __super  Class.Base
 
 ---@class Class.Config
 ---@field private name         string
@@ -45,17 +46,19 @@ end
 
 -- 定义一个类
 ---@generic T: string
+---@generic Super: string
 ---@param name  `T`
----@param super? string
+---@param super? `Super`
+---@param super_init? fun(self: Class, super: Super, ...)
 ---@return T
 ---@return Class.Config
-function M.declare(name, super)
+function M.declare(name, super, super_init)
     local config = M.getConfig(name)
     if M._classes[name] then
         return M._classes[name], config
     end
-    local class    = {}
-    local getter   = {}
+    local class  = {}
+    local getter = {}
     class.__name   = name
     class.__getter = getter
 
@@ -99,7 +102,7 @@ function M.declare(name, super)
     M._classes[name] = class
 
     local mt = {
-        __call = function(self, ...)
+        __call = function (self, ...)
             if not self.__alloc then
                 return self
             end
@@ -114,8 +117,13 @@ function M.declare(name, super)
             M._errorHandler(('class %q can not inherit itself'):format(name))
         end
 
+        class.__super = superClass
         config.superClass = superClass
-        config:extends(super)
+        if super_init then
+            config:extends(super, super_init)
+        else
+            config:extends(super, function () end)
+        end
     end
 
     return class, config
@@ -159,7 +167,7 @@ function M.delete(obj)
     obj.__deleted__ = true
     local name = obj.__class__
     if not name then
-        M._errorHandler('can not delete undeclared class')
+        M._errorHandler('can not delete undeclared class : ' .. tostring(obj))
     end
 
     M.runDel(obj, name)
@@ -177,9 +185,12 @@ end
 ---@return boolean
 function M.isValid(obj)
     return obj.__class__
-        and not obj.__deleted__
+       and not obj.__deleted__
 end
 
+--推荐使用“扩展语义”而不是“继承”语义 。
+--因此不适合使用`super`了。
+---@deprecated
 ---@param name string
 ---@return fun(...)
 function M.super(name)
@@ -187,7 +198,7 @@ function M.super(name)
     return config:super(name)
 end
 
----@alias Class.Extends.CallData { name: string, init?: fun(self: any, super: fun(...), ...) }
+---@alias Class.Extends.CallData { name: string, init?: fun(self: any, super: (fun(...): Class.Base), ...) }
 
 ---@generic Class: string
 ---@generic Extends: string
@@ -204,23 +215,33 @@ end
 ---@param name string
 ---@param ... any
 function M.runInit(obj, name, ...)
-    local data = M.getConfig(name)
+    local data  = M.getConfig(name)
     if data.initCalls == false then
         return
     end
     if not data.initCalls then
         local initCalls = {}
+        local collected = {}
 
         local function collectInitCalls(cname)
-            local class        = M._classes[cname]
-            local cdata        = M.getConfig(cname)
+            if collected[cname] then
+                error(('class %q has circular inheritance'):format(cname))
+            end
+            collected[cname] = true
+            local class = M._classes[cname]
+            local cdata  = M.getConfig(cname)
             local extendsCalls = cdata.extendsCalls
             if extendsCalls then
                 for _, call in ipairs(extendsCalls) do
                     if call.init then
-                        initCalls[#initCalls + 1] = function(cobj, ...)
-                            call.init(cobj, function(...)
-                                M.runInit(cobj, call.name, ...)
+                        initCalls[#initCalls+1] = function (cobj, ...)
+                            local firstCall = true
+                            call.init(cobj, function (...)
+                                if firstCall then
+                                    firstCall = false
+                                    M.runInit(cobj, call.name, ...)
+                                end
+                                return M._classes[call.name]
                             end, ...)
                         end
                     else
@@ -229,7 +250,7 @@ function M.runInit(obj, name, ...)
                 end
             end
             if class.__init then
-                initCalls[#initCalls + 1] = class.__init
+                initCalls[#initCalls+1] = class.__init
             end
         end
 
@@ -252,8 +273,8 @@ end
 ---@param obj table
 ---@param name string
 function M.runDel(obj, name)
-    local class        = M._classes[name]
-    local data         = M.getConfig(name)
+    local class = M._classes[name]
+    local data  = M.getConfig(name)
     local extendsCalls = data.extendsCalls
     if extendsCalls then
         for _, call in ipairs(extendsCalls) do
@@ -283,12 +304,12 @@ function Config:super(name)
             M._errorHandler(('class %q not inherit from any class'):format(name))
         end
         ---@cast super -?
-        self.superCache[name] = function(...)
+        self.superCache[name] = function (...)
             local k, obj = debug.getlocal(2, 1)
             if k ~= 'self' then
                 M._errorHandler(('`%s()` must be called by the class'):format(name))
             end
-            super.__call(obj, ...)
+            super.__call(obj,...)
         end
     end
     return self.superCache[name]
@@ -340,7 +361,7 @@ end
 ---@param obj? table
 ---@param parentName string
 ---@return boolean
-function M.IsInstanceOf(obj, parentName)
+function M.isInstanceOf(obj, parentName)
     if not obj then
         return false
     end
