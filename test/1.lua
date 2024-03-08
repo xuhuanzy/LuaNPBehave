@@ -14,7 +14,7 @@ end
 local node = New("NPBehave.Root")(New("NPBehave.Node")("test"))
 print(node.CurrentState)
 
-local ClassName = NPBehaveClassName
+local ClassName = NPBehave.ClassName
 
 ---@type NPBehave.Root
 local behaviorTree
@@ -32,7 +32,7 @@ local tree = New(ClassName.Service)(0.5,
         behaviorTree.Blackboard:Set("foo", v)
     end,
     New(ClassName.Selector)(
-        New(ClassName.BlackboardCondition)("foo", NPBehaveOperator.IsEqual, true, NPBehaveStops.ImmediateRestart,
+        New(ClassName.BlackboardCondition)("foo", NPBehave.Enum.Operator.IsEqual, true, NPBehave.Enum.Stops.ImmediateRestart,
             New(ClassName.Sequence)(
                 New(ClassName.Action)({
                     action = function() print("foo") end
@@ -62,7 +62,7 @@ while true do
     -- count = count + 1
     -- if count == 100 then
     --     print("stop")
-    --     if behaviorTree ~= nil and behaviorTree.CurrentState == NPBehaveNodeState.Active then
+    --     if behaviorTree ~= nil and behaviorTree.CurrentState == NPBehave.Enum.NodeState.Active then
     --         behaviorTree:CancelWithoutReturnResult()
     --     end
     -- end

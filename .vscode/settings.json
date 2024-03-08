@@ -1,10 +1,4 @@
 {
-    "cSpell.words": [
-        "arcanist",
-        "cooldown",
-        "keymap",
-        "metatable"
-    ],
     "Lua.diagnostics.globals": [
         "gameapi",
         "globalapi"
